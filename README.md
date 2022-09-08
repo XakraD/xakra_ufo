@@ -8,6 +8,7 @@ This script will allow you to drive 2 types of UFO. When using the assigned item
 
 In the Config file you can change:
 *   Choose the type of UFO (big or small)
+*   List of objects and quantity
 *   Driving keys
 *   Driving speeds
 
