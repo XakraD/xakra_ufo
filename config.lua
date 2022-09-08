@@ -1,6 +1,6 @@
 Config = {}
 
-Config.TypeUFO = 'big' -- 'big' / 'small'
+Config.TypeUFO = 'small' -- 'big' / 'small'
 
 Config.Items = {
     { name = 'ufoitem', amount = 1}
