@@ -44,6 +44,8 @@ AddEventHandler('xakra_ufo:UFO', function(item)
         end
 
         active = true
+
+        cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
     elseif active then
         DestroyAllCams(true)
 
@@ -79,8 +81,6 @@ Citizen.CreateThread(function()
     local player = PlayerPedId()
     local index = 1
     local CurrentSpeed = Config.Speeds[index].speed
-
-    cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
 
     while true do
         local t = 4
