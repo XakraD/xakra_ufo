@@ -30,5 +30,5 @@ Config.Speeds = {
     { label = 'Normal', speed = 2 },
     { label = 'Fast', speed = 10 },
     { label = 'Very Fast', speed = 15 },
-    { label = 'Max', speed = 29 },
+    -- { label = 'Max', speed = 29 },
 }

@@ -1,5 +1,6 @@
 local active = false
 local ufo
+local cam
 
 RegisterNetEvent('xakra_ufo:UFO')
 AddEventHandler('xakra_ufo:UFO', function(item)
@@ -44,6 +45,8 @@ AddEventHandler('xakra_ufo:UFO', function(item)
 
         active = true
     elseif active then
+        DestroyAllCams(true)
+
         SetEntityVisible(player, true, true)
         DetachEntity(player, true, false)
 
@@ -67,6 +70,8 @@ AddEventHandler('xakra_ufo:UFO', function(item)
         active = false
 
         TriggerServerEvent('xakra_ufo:SubItem', item)
+
+        cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
     end
 end)
 
@@ -75,12 +80,22 @@ Citizen.CreateThread(function()
     local index = 1
     local CurrentSpeed = Config.Speeds[index].speed
 
+    cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
+
     while true do
         local t = 4
         if active then
             local yoff = 0.0
             local zoff = 0.0
 
+            if Config.TypeUFO == 'big' then
+                AttachCamToEntity(cam , ufo, 0.0, -18.0, 8.0, true)
+                SetCamRot(cam, -5.0,0.0,GetEntityHeading(ufo))
+            elseif Config.TypeUFO == 'small' then
+                AttachCamToEntity(cam , ufo, 0.0, -8.0, 3.0, true)
+                SetCamRot(cam, -1.0,0.0,GetEntityHeading(ufo))   
+            end
+            RenderScriptCams(true, true, 0, 1, 0)
 
             if IsDisabledControlJustPressed(1, Config.Controls.changeSpeed) then
                 timer = 2000
@@ -94,11 +109,11 @@ Citizen.CreateThread(function()
 
             end
             if IsDisabledControlPressed(0, Config.Controls.goForward) then
-                yoff = -Config.Offsets.y
+                yoff = Config.Offsets.y
             end
 
             if IsDisabledControlPressed(0, Config.Controls.goBackward) then
-                yoff = Config.Offsets.y
+                yoff = -Config.Offsets.y
             end
 
             if IsDisabledControlPressed(0, Config.Controls.turnLeft) then
@@ -131,6 +146,7 @@ AddEventHandler('onResourceStop', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
         return
       end
+    DestroyAllCams(true)
     SetEntityVisible(PlayerPedId(), true, true)
     FreezeEntityPosition(PlayerPedId(), false)
     DeleteEntity(ufo)
