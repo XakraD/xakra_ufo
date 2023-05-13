@@ -39,6 +39,8 @@ AddEventHandler('xakra_ufo:UFO', function(item)
         AttachEntityToEntity(player, ufo, bone, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
         FreezeEntityPosition(player, true)
 
+        SetEntityCollision(ufo, false, false)
+
         if Config.TypeUFO == 'small' then
             SetEntityVisible(player, false, false)
         end
